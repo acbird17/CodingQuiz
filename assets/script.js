@@ -1,3 +1,4 @@
+var topScore = $("#currentHS");
 var questionNumber = 0;
 var currentQ;
 var score = { total: 0, time: 30, questionsAnswered: 0 };
@@ -31,6 +32,13 @@ var questions = [
   },
 ];
 
+function highScore() {
+  if (score.total > topScore) {
+    topScore.text("Current High Score: " + finalScore);
+    localStorage.setItem("score", topScore);
+  }
+}
+
 $(function () {
   score.total = questions.length - 1;
   $("#startBtn").click(function () {
@@ -59,6 +67,7 @@ function endGame() {
   $("#quizBody").hide();
   $("#countdown").hide();
   $("#finalScore").text(score.time);
+  highScore();
 }
 
 function countdown() {
@@ -75,7 +84,7 @@ function countdown() {
 
 function loadQuestion() {
   $("#wrong").hide();
-  var randomQuestion = questionNumber; // Math.floor(Math.random() * questions.length);
+  var randomQuestion = questionNumber;
   currentQ = questions[randomQuestion];
   $("#questionEl").text(currentQ.question);
   $("#answersEl").empty();
