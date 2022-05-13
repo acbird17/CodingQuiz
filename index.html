@@ -12,28 +12,36 @@
       rel="stylesheet"
       href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
     />
+    <link rel="stylesheet" href="./assets/style.css" />
     <title>Coding Quiz</title>
   </head>
   <body>
     <div class="bg-dark min-vh-100 d-flex flex-column text-white">
       <header class="row justify-content-between mb-5 mx-3">
         <h3>View Highscores</h3>
-        <h3>Timer</h3>
+        <h3 id="countdown" class="hidden">Time Left: 30</h3>
       </header>
       <section
         class="d-flex flex-column w-100 align-items-center justify-content-center mt-5"
       >
-        <h1>Hello, Welcome to the Coding Quiz</h1>
-        <h2>Quiz Question - Hidden</h2>
-        <ul>
-          <li>Answer 1 - Hidden</li>
-          <li>Answer 2</li>
-          <li>Answer 3</li>
-          <li>Answer 4</li>
-        </ul>
+        <div class="justify-content-center" id="title">
+          <h1>Hello, Welcome to the Coding Quiz</h1>
+          <button class="btn btn-xl btn-danger" id="startBtn">Start</button>
+        </div>
+        <div class="hidden" id="quizBody">
+          <h2 id="questionEl"></h2>
+          <ul id="answersEl"></ul>
+          <hr />
+          <span class="hidden" id="wrong">Wrong!</span>
+        </div>
+        <div class="hidden" id="scorePage">
+          <h2>All Done</h2>
+          <h3>You final score is: <span id="finalScore"></span></h3>
+        </div>
       </section>
     </div>
   </body>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script src="./assets/script.js"></script>
 </html>
