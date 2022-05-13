@@ -18,7 +18,7 @@
   <body>
     <div class="bg-dark min-vh-100 d-flex flex-column text-white">
       <header class="row justify-content-between mb-5 mx-3">
-        <h3 id="currentHS"></h3>
+        <h3 id="currentHS">Current High Score is:</h3>
         <h3 id="countdown" class="hidden">Time Left: 30</h3>
       </header>
       <section
@@ -26,7 +26,6 @@
       >
         <div class="justify-content-center" id="title">
           <h1>Hello, Welcome to the Coding Quiz</h1>
-          <button class="btn btn-xl btn-danger" id="startBtn">Start</button>
         </div>
         <div class="hidden" id="quizBody">
           <h2 id="questionEl"></h2>
@@ -38,6 +37,7 @@
           <h2>All Done</h2>
           <h3>You final score is: <span id="finalScore"></span></h3>
         </div>
+        <button class="btn btn-xl btn-danger" id="startBtn">Start</button>
       </section>
     </div>
   </body>

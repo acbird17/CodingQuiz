@@ -1,4 +1,4 @@
-var topScore = $("#currentHS");
+var topScore;
 var questionNumber = 0;
 var currentQ;
 var score = { total: 0, time: 30, questionsAnswered: 0 };
@@ -16,36 +16,44 @@ var questions = [
     answer: "Boolean",
   },
   {
-    question: "Question 3?",
-    options: ["Boolean", "String", "Array", "Number"],
-    answer: "Boolean",
+    question: "25 is what?",
+    options: ["Integer", "Number", "Banana", "Float"],
+    answer: "Number",
   },
   {
-    question: "Question 4?",
-    options: ["Boolean", "String", "Array", "Number"],
-    answer: "Boolean",
+    question: "Which one of these is not a programing language?",
+    options: ["JavaScript", "Python", "HTML", "Moose"],
+    answer: "Moose",
   },
   {
-    question: "Question 5?",
-    options: ["Boolean", "String", "Array", "Number"],
-    answer: "Boolean",
+    question: "Which of these is not an element?",
+    options: ["Body", "Span", "Header", "Document"],
+    answer: "Document",
   },
 ];
 
 function highScore() {
-  if (score.total > topScore) {
-    topScore.text("Current High Score: " + finalScore);
+  $("#currentHS").show();
+  topScore = localStorage.getItem("score");
+  if (score.time > topScore || topScore === 0) {
+    topScore = score.time;
     localStorage.setItem("score", topScore);
   }
 }
 
 $(function () {
+  var topScore = localStorage.getItem("score");
+  if (topScore == undefined) topScore = 0;
+  $("#highScore").text(topScore);
   score.total = questions.length - 1;
   $("#startBtn").click(function () {
+    questionNumber = 0;
+    $("#scorePage").hide();
     countdown();
     $("#quizBody").show();
     $("#countdown").show();
     $("#title").hide();
+    $("#startBtn").hide();
     loadQuestion();
   });
   $("body").on("click", ".answerBtn", function () {
@@ -71,6 +79,7 @@ function endGame() {
 }
 
 function countdown() {
+  score.time = 30;
   var timerEl = $("#countdown");
   var timeInterval = setInterval(function () {
     if (score.time > 0) {
@@ -78,6 +87,7 @@ function countdown() {
       score.time--;
     } else {
       endGame();
+      return;
     }
   }, 1000);
 }
