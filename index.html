@@ -18,21 +18,20 @@
   <body>
     <div class="bg-dark min-vh-100 d-flex flex-column text-white">
       <header class="row justify-content-between mb-5 mx-3">
-        <h3 id="currentHS">Current High Score is:</h3>
+        <h3>Current High Score is: <span id="highScore"></span></h3>
         <h3 id="countdown" class="hidden">Time Left: 30</h3>
       </header>
       <section
         class="d-flex flex-column w-100 align-items-center justify-content-center mt-5"
       >
-        <div class="justify-content-center" id="title">
+        <div class="justify-content-center m-2" id="title">
           <h1>Hello, Welcome to the Coding Quiz</h1>
         </div>
-        <div class="hidden" id="quizBody">
-          <h2 id="questionEl"></h2>
-          <ul id="answersEl"></ul>
-          <hr />
-          <span class="hidden" id="wrong">Wrong!</span>
-        </div>
+        <!-- <div class="hidden" id="quizBody"> -->
+        <h2 id="questionEl" class="quizBody"></h2>
+        <ul id="answersEl" class="quizBody"></ul>
+        <hr class="quizBody" />
+        <span class="hidden" id="wrong">Wrong!</span>
         <div class="hidden" id="scorePage">
           <h2>All Done</h2>
           <h3>You final score is: <span id="finalScore"></span></h3>

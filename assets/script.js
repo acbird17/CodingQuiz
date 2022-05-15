@@ -1,3 +1,4 @@
+var myInterval;
 var topScore;
 var questionNumber = 0;
 var currentQ;
@@ -16,7 +17,7 @@ var questions = [
     answer: "Boolean",
   },
   {
-    question: "25 is what?",
+    question: "In JavaScript 25 is what?",
     options: ["Integer", "Number", "Banana", "Float"],
     answer: "Number",
   },
@@ -33,12 +34,13 @@ var questions = [
 ];
 
 function highScore() {
-  $("#currentHS").show();
   topScore = localStorage.getItem("score");
   if (score.time > topScore || topScore === 0) {
     topScore = score.time;
     localStorage.setItem("score", topScore);
   }
+  $("#highScore").text(topScore);
+  $("#currentHS").show();
 }
 
 $(function () {
@@ -47,20 +49,15 @@ $(function () {
   $("#highScore").text(topScore);
   score.total = questions.length - 1;
   $("#startBtn").click(function () {
-    questionNumber = 0;
-    $("#scorePage").hide();
-    countdown();
-    $("#quizBody").show();
-    $("#countdown").show();
-    $("#title").hide();
-    $("#startBtn").hide();
-    loadQuestion();
+    startQuiz();
   });
+
   $("body").on("click", ".answerBtn", function () {
     var a = $(this).text();
     if (a === currentQ.answer) {
       if (score.total === score.questionsAnswered) {
         endGame();
+        return;
       }
       loadQuestion();
       score.questionsAnswered++;
@@ -70,20 +67,34 @@ $(function () {
   });
 });
 
+function startQuiz() {
+  score.questionsAnswered = 0;
+  questionNumber = 0;
+  $("#scorePage").hide();
+  $("#quizBody").show();
+  $("#countdown").show();
+  $("#title").hide();
+  $("#startBtn").hide();
+  countdown();
+  loadQuestion();
+}
+
 function endGame() {
   $("#scorePage").show();
   $("#quizBody").hide();
-  $("#countdown").hide();
+  $("#countdown").text("");
   $("#finalScore").text(score.time);
+  $("#startBtn").text("Play Again");
+  $("#startBtn").show();
+  clearInterval(myInterval);
   highScore();
 }
 
 function countdown() {
-  score.time = 30;
-  var timerEl = $("#countdown");
-  var timeInterval = setInterval(function () {
+  score.time = 30; //$("#countdown");
+  myInterval = setInterval(function () {
     if (score.time > 0) {
-      timerEl.text("Time Left: " + score.time);
+      $("#countdown").text("Time Left: " + score.time);
       score.time--;
     } else {
       endGame();
@@ -94,8 +105,7 @@ function countdown() {
 
 function loadQuestion() {
   $("#wrong").hide();
-  var randomQuestion = questionNumber;
-  currentQ = questions[randomQuestion];
+  currentQ = questions[questionNumber];
   $("#questionEl").text(currentQ.question);
   $("#answersEl").empty();
   $.each(currentQ.options, function (index, value) {
